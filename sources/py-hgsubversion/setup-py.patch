@@ -1,0 +1,10 @@
+--- hgsubversion-1.1.2/setup.py.orig	2010-05-18 22:07:34.000000000 +0000
++++ hgsubversion-1.1.2/setup.py	2010-07-07 16:27:31.276480970 +0000
+@@ -101,7 +101,6 @@
+ 
+ # Ensure that the Subversion bindings are present
+ sys.path.insert(0, 'hgsubversion')
+-import svnwrap
+ 
+ setup(
+     name = 'hgsubversion',
