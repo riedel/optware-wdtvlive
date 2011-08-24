@@ -113,6 +113,12 @@ $(FONTCONFIG_BUILD_DIR)/.configured: $(DL_DIR)/fontconfig-$(FONTCONFIG_VERSION).
 		$(@D)/fc-glyphname/Makefile.in \
 		$(@D)/fc-lang/Makefile.in \
 		;
+	sed -i -e '/^CPPFLAGS/s|=.*$$|=|' \
+		$(@D)/fc-arch/Makefile.in \
+		$(@D)/fc-case/Makefile.in \
+		$(@D)/fc-glyphname/Makefile.in \
+		$(@D)/fc-lang/Makefile.in \
+		;
 	(cd $(FONTCONFIG_BUILD_DIR); \
 		$(TARGET_CONFIGURE_OPTS) \
 		CPPFLAGS="$(STAGING_CPPFLAGS) $(FONTCONFIG_CPPFLAGS)" \
