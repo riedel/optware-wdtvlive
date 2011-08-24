@@ -1,0 +1,72 @@
+LIBC_STYLE=glibc
+TARGET_ARCH=mipsel
+TARGET_OS=linux
+
+LIBSTDC++_VERSION=6.0.10
+LIBSTDC++_TARGET_LIBDIR=`$(TARGET_CC) --print-file-name=$(LIBSTDC++_LIBNAME_FULL)|xargs dirname`
+
+LIBNSL_VERSION=0.9.28
+
+GETTEXT_NLS=enable
+NO_BUILTIN_MATH=true
+
+GNU_TARGET_NAME=$(TARGET_ARCH)-linux
+
+CROSS_CONFIGURATION_GCC_VERSION=4.0.4
+CROSS_CONFIGURATION_UCLIBC_VERSION=0.9.28
+BUILDROOT_GCC=$(CROSS_CONFIGURATION_GCC_VERSION)
+
+ifeq ($(HOST_MACHINE),mips)
+
+HOSTCC = $(TARGET_CC)
+GNU_HOST_NAME = $(GNU_TARGET_NAME)
+TARGET_CROSS=/opt/bin/
+TARGET_LIBDIR=/opt/lib
+TARGET_INCDIR=/opt/include
+TARGET_LDFLAGS = -L/opt/lib
+TARGET_CUSTOM_FLAGS=
+TARGET_CFLAGS=-I/opt/include $(TARGET_OPTIMIZATION) $(TARGET_DEBUGGING) $(TARGET_CUSTOM_FLAGS)
+
+toolchain:
+
+else
+
+HOSTCC = gcc
+GNU_HOST_NAME = $(HOST_MACHINE)-pc-linux-gnu
+CROSS_CONFIGURATION_GCC=gcc-$(CROSS_CONFIGURATION_GCC_VERSION)
+CROSS_CONFIGURATION=$(CROSS_CONFIGURATION_GCC)-$(CROSS_CONFIGURATION_UCLIBC)
+TARGET_CROSS_TOP = $(BASE_DIR)/toolchain/mips-4.3
+TARGET_CROSS = $(TARGET_CROSS_TOP)/bin/$(TARGET_ARCH)-$(TARGET_OS)-
+TARGET_LIBDIR = $(TARGET_CROSS_TOP)/lib
+TARGET_INCDIR = $(TARGET_CROSS_TOP)/include
+TARGET_LDFLAGS =  -ggdb -Wl,-melf32ltsmip 
+COMPILKIND =glibc hardfloat
+PATH:=$(TARGET_CROSS_TOP)/bin/:$(PATH)
+export COMPILKIND PATH
+TARGET_CUSTOM_FLAGS= -pipe -Wall  -D_POSIX  -D_UNIX -D__MIPSEL__ -D__EM86XX__ -mips32r2 -Wa,-mips32r2 -march=24kf -mtune=24kf -DEM86XX_CHIP=EM86XX_CHIPID_TANGO3 -DEM86XX_REVISION=3 -DDEMUX_PSF=1 -DXBOOT2_SMP865X=1 -DEM86XX_MODE=EM86XX_MODEID_STANDALONE -DWITH_XLOADED_UCODE=1 -DGCC4_TOOLCHAIN -ggdb -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE=1 -D_LARGEFILE64_SOURCE=1  -D__LITTLE_ENDIAN__
+TARGET_CFLAGS=$(TARGET_OPTIMIZATION) $(TARGET_DEBUGGING) $(TARGET_CUSTOM_FLAGS) 
+TARGET_CXXFLAGS=$(TARGET_OPTIMIZATION) $(TARGET_DEBUGGING) $(TARGET_CUSTOM_FLAGS) 
+
+# http://support.wdc.com/product/download.asp?groupid=1001&sid=112&lang=en
+TOOLCHAIN_SITES=http://download.wdc.com/gpl/
+TOOLCHAIN_BINARY=GPL_toolchain_of_WDTV.zip
+
+toolchain: $(BASE_DIR)/toolchain/.unpacked
+
+$(DL_DIR)/$(TOOLCHAIN_BINARY):
+	$(WGET) -P $(@D) $(TOOLCHAIN_SITE)/$(@F) || \
+	$(WGET) -P $(@D) $(SOURCES_NLO_SITE)/$(@F)
+
+$(BASE_DIR)/toolchain/.unpacked: $(DL_DIR)/$(TOOLCHAIN_BINARY) # $(OPTWARE_TOP)/platforms/toolchain-$(OPTWARE_TARGET).mk
+	rm -rf $@ $(TARGET_CROSS_TOP)
+	mkdir -p $(@D)
+	unzip -p $< GPL_toolchain_of_WDTV/toolchain_binary/mips-4.3.tgz |tar -vxz -C $(@D) -f - mips-4.3/bin mips-4.3/lib mips-4.3/libexec mips-4.3/include  mips-4.3/mips-linux-gnu/libc/el mips-4.3/mips-linux-gnu/lib/el mips-4.3/mips-linux-gnu/bin mips-4.3/mips-linux-gnu/include mips-4.3/mips-linux-gnu/libc/usr/include
+	touch $@
+
+BINUTILS_VERSION=2.19.1
+BINUTILS_IPK_VERSION=1
+
+#NATIVE_GCC_EXTRA_CONFIG_ARGS=--enable-shared  --disable-__cxa_atexit --enable-target-optspace --enable-sjlj-exceptions
+#GCC_IPK_VERSION = 1
+
+endif
