@@ -127,7 +127,7 @@ py-soappy-unpack: $(PY-SOAPPY_BUILD_DIR)/.configured
 #
 $(PY-SOAPPY_BUILD_DIR)/.built: $(PY-SOAPPY_BUILD_DIR)/.configured
 	rm -f $(PY-SOAPPY_BUILD_DIR)/.built
-	cd $(PY-SOAPPY_BUILD_DIR) &&  python2.4 setup.py build
+	cd $(PY-SOAPPY_BUILD_DIR) &&  $(HOST_STAGING_PREFIX)/bin/python2.4 setup.py build
 	touch $(PY-SOAPPY_BUILD_DIR)/.built
 
 #
@@ -179,7 +179,7 @@ $(PY-SOAPPY_IPK): $(PY-SOAPPY_BUILD_DIR)/.built
 	rm -rf $(PY-SOAPPY_IPK_DIR) $(BUILD_DIR)/py-soappy_*_$(TARGET_ARCH).ipk
 	#$(MAKE) -C $(PY-SOAPPY_BUILD_DIR) DESTDIR=$(PY-SOAPPY_IPK_DIR) install
 	(cd $(PY-SOAPPY_BUILD_DIR); \
-	python2.4 setup.py install --root=$(PY-SOAPPY_IPK_DIR) --prefix=/opt)
+	$(HOST_STAGING_PREFIX)/bin/python2.4 setup.py install --root=$(PY-SOAPPY_IPK_DIR) --prefix=/opt)
 	for d in bid contrib docs tests tools validate fpconst; do \
 		install -d $(PY-SOAPPY_IPK_DIR)/opt/share/doc/SOAPpy/$$d; \
 		install $(PY-SOAPPY_BUILD_DIR)/$$d*/* $(PY-SOAPPY_IPK_DIR)/opt/share/doc/SOAPpy/$$d; \

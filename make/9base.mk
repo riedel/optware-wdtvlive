@@ -53,8 +53,8 @@ endif
 9BASE_IPK_DIR=$(BUILD_DIR)/9base-$(9BASE_VERSION)-ipk
 9BASE_IPK=$(BUILD_DIR)/9base_$(9BASE_VERSION)-$(9BASE_IPK_VERSION)_$(TARGET_ARCH).ipk
 
-.PHONY: 9base-source 9base-unpack 9base 9base-stage 9base-ipk 9base-clean 9base-dirclean \
-9base-check 9base-host 9base-host-stage
+#.PHONY: 9base-source 9base-unpack 9base 9base-stage 9base-ipk 9base-clean 9base-dirclean \
+#9base-check 9base-host 9base-host-stage
 
 $(DL_DIR)/$(9BASE_SOURCE):
 	rm -f $@ $(@D)/$(9BASE_UPSTREAM_SOURCE)

@@ -21,7 +21,7 @@
 #
 
 # one of `ls platforms/toolchain-*.mk | sed 's|^platforms/toolchain-\(.*\)\.mk$$|\1|'`
-OPTWARE_TARGET ?= nslu2
+OPTWARE_TARGET ?= wdtvlive
 
 PACKAGES_BROKEN_ON_64BIT_HOST = \
 apcupsd appweb atop php 9base alsa-oss appweb \
@@ -391,7 +391,7 @@ COMMON_CROSS_PACKAGES = \
 	socat softflowd sox spandsp spawn-fcgi speex spindown splix \
 	sqlite sqlite2 \
 	sqsh squeak squid squid3 srelay srecord ssam sslwrap \
-	strace stunnel streamripper \
+	stfl strace stunnel streamripper \
 	stupid-ftpd sudo surfraw swi-prolog svn \
 	swig syslog-ng sysstat syx \
 	taged taglib tar tcl tcpwrappers tftp-hpa \
@@ -504,6 +504,7 @@ else
 LIBC_STYLE=glibc
 endif
 
+
 include $(OPTWARE_TOP)/platforms/packages-$(OPTWARE_TARGET).mk
 
 ifeq ($(HOSTCC), $(TARGET_CC))
@@ -549,16 +550,17 @@ SOURCEFORGE_MIRROR=downloads.sourceforge.net
 #SOURCES_NLO_SITE=http://sources.nslu2-linux.org/sources
 SOURCES_NLO_SITE=http://ftp.osuosl.org/pub/nslu2/sources
 
-TARGET_CXX=$(TARGET_CROSS)g++
-TARGET_CC=$(TARGET_CROSS)gcc
-TARGET_CPP="$(TARGET_CC) -E"
-TARGET_LD=$(TARGET_CROSS)ld
-TARGET_AR=$(TARGET_CROSS)ar
-TARGET_AS=$(TARGET_CROSS)as
-TARGET_NM=$(TARGET_CROSS)nm
-TARGET_RANLIB=$(TARGET_CROSS)ranlib
+TARGET_CXX?=$(TARGET_CROSS)g++
+TARGET_CC?=$(TARGET_CROSS)gcc
+TARGET_CPP?="$(TARGET_CC) -E"
+TARGET_LD?=$(TARGET_CROSS)ld
+TARGET_AR?=$(TARGET_CROSS)ar
+TARGET_AS?=$(TARGET_CROSS)as
+TARGET_NM?=$(TARGET_CROSS)nm
+TARGET_RANLIB?=$(TARGET_CROSS)ranlib
 TARGET_STRIP?=$(TARGET_CROSS)strip
-TARGET_CONFIGURE_OPTS= \
+
+TARGET_CONFIGURE_OPTS?= \
 	AR=$(TARGET_AR) \
 	AS=$(TARGET_AS) \
 	LD=$(TARGET_LD) \
@@ -569,6 +571,7 @@ TARGET_CONFIGURE_OPTS= \
 	CXX=$(TARGET_CXX) \
 	RANLIB=$(TARGET_RANLIB) \
 	STRIP=$(TARGET_STRIP)
+
 TARGET_PATH=$(STAGING_PREFIX)/bin:$(STAGING_DIR)/bin:/opt/bin:/opt/sbin:/bin:/sbin:/usr/bin:/usr/sbin
 
 STRIP_COMMAND ?= $(TARGET_STRIP) --remove-section=.comment --remove-section=.note --strip-unneeded
@@ -596,6 +599,7 @@ PACKAGES_SOURCE:=$(patsubst %,%-source,$(PACKAGES))
 PACKAGES_DIRCLEAN:=$(patsubst %,%-dirclean,$(PACKAGES))
 PACKAGES_STAGE:=$(patsubst %,%-stage,$(PACKAGES))
 PACKAGES_IPKG:=$(patsubst %,%-ipk,$(PACKAGES))
+PACKAGES_MAKEFILES:=$(patsubst %,make/%.mk,$(PACKAGES))
 
 $(PACKAGES) : directories toolchain
 $(PACKAGES_STAGE) : directories toolchain
@@ -603,21 +607,21 @@ $(PACKAGES_STAGE) : directories toolchain
 $(PACKAGES_IPKG) : directories toolchain ipkg-utils
 %-ipk : directories toolchain ipkg-utils
 
-.PHONY: index
+.PHONY: index $(PACKAGE_DIR)/Packages
 index: $(PACKAGE_DIR)/Packages
 
 ifeq ($(PACKAGE_DIR),$(BASE_DIR)/packages)
     ifeq (,$(findstring -bootstrap,$(SPECIFIC_PACKAGES)))
-$(PACKAGE_DIR)/Packages: $(BUILD_DIR)/*.ipk
+$(PACKAGE_DIR)/Packages: # $(BUILD_DIR)/*.ipk
     else
-$(PACKAGE_DIR)/Packages: $(BUILD_DIR)/*.ipk $(BUILD_DIR)/*.xsh
+$(PACKAGE_DIR)/Packages: # $(BUILD_DIR)/*.ipk $(BUILD_DIR)/*.xsh
     endif
 	if ls $(BUILD_DIR)/*_$(TARGET_ARCH).xsh > /dev/null 2>&1; then \
 		rm -f $(@D)/*_$(TARGET_ARCH).xsh ; \
 		cp -fal $(BUILD_DIR)/*_$(TARGET_ARCH).xsh $(@D)/ ; \
 	fi
-	rm -f $(@D)/*_$(TARGET_ARCH).ipk
-	cp -fal $(BUILD_DIR)/*_$(TARGET_ARCH).ipk $(@D)/
+	#rm -f $(@D)/*_$(TARGET_ARCH).ipk
+	cp -fan $(BUILD_DIR)/*_$(TARGET_ARCH).ipk $(@D)/
 else
 $(PACKAGE_DIR)/Packages:
 endif
@@ -643,7 +647,10 @@ query-%:
 
 TARGET_CC_VER = $(shell test -x "$(TARGET_CC)" && $(TARGET_CC) -dumpversion)
 
-include make/*.mk
+
+include $(PACKAGES_MAKEFILES) make/ipkg-utils.mk make/automake*.mk make/scons.mk
+
+include $(OPTWARE_TOP)/platforms/packages-$(OPTWARE_TARGET).mk
 
 directories: $(DL_DIR) $(BUILD_DIR) $(STAGING_DIR) $(STAGING_PREFIX) \
 	$(STAGING_LIB_DIR) $(STAGING_INCLUDE_DIR) $(TOOL_BUILD_DIR) \

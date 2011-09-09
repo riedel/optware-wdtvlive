@@ -19,9 +19,10 @@
 #
 # You should change all these variables to suit your package.
 #
-MDADM_SITE=http://www.cse.unsw.edu.au/~neilb/source/mdadm/
+#MDADM_SITE=http://www.cse.unsw.edu.au/~neilb/source/mdadm/
+MDADM_SITE=http://www.kernel.org/pub/linux/utils/raid/mdadm
 MDADM_VERSION=2.6
-MDADM_SOURCE=mdadm-$(MDADM_VERSION).tgz
+MDADM_SOURCE=mdadm-$(MDADM_VERSION).tar.gz
 MDADM_DIR=mdadm-$(MDADM_VERSION)
 MDADM_UNZIP=zcat
 MDADM_MAINTAINER=NSLU2 Linux <nslu2-linux@yahoogroups.com>

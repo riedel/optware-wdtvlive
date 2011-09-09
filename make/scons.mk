@@ -172,7 +172,6 @@ $(SCONS_HOST_BUILD_DIR)/.staged: host/.configured make/scons.mk
 	rm -f $@
 	rm -rf $(HOST_STAGING_PREFIX)/bin/scons* \
 		$(HOST_STAGING_LIB_DIR)/scons-*
-	$(MAKE) python-stage
 	rm -rf $(HOST_BUILD_DIR)/$(SCONS_DIR) $(@D)
 	$(SCONS_UNZIP) $(DL_DIR)/$(SCONS_SOURCE) | tar -C $(HOST_BUILD_DIR) -xvf -
 	if test "$(HOST_BUILD_DIR)/$(SCONS_DIR)" != "$(@D)" ; \
@@ -189,7 +188,7 @@ $(SCONS_HOST_BUILD_DIR)/.staged: host/.configured make/scons.mk
 	    ) >> setup.cfg; \
 	)
 	(cd $(@D); \
-		$(HOST_STAGING_PREFIX)/bin/python2.5 setup.py install \
+		python setup.py install \
 			--root=$(HOST_STAGING_DIR) --prefix=/opt; \
         )
 	touch $@

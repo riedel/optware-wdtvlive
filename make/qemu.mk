@@ -20,7 +20,8 @@
 # from your name or email address.  If you leave MAINTAINER set to
 # "NSLU2 Linux" other developers will feel free to edit.
 #
-QEMU_SITE=http://fabrice.bellard.free.fr/qemu
+#QEMU_SITE=http://fabrice.bellard.free.fr/qemu
+QEMU_SITE=http://ftp.riken.go.jp/pub/FreeBSD/distfiles/qemu
 QEMU_VERSION=0.8.0
 QEMU_SOURCE=qemu-$(QEMU_VERSION).tar.gz
 QEMU_DIR=qemu-$(QEMU_VERSION)

@@ -13,7 +13,7 @@
 # APR_UNZIP is the command used to unzip the source.
 # It is usually "zcat" (for .gz) or "bzcat" (for .bz2)
 #
-APR_SITE=http://www.apache.org/dist/apr
+APR_SITE=http://archive.apache.org/dist/apr/#http://www.apache.org/dist/apr
 APR_VERSION=1.3.12
 APR_SOURCE=apr-$(APR_VERSION).tar.bz2
 APR_DIR=apr-$(APR_VERSION)

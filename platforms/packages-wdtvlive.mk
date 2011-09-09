@@ -8,6 +8,8 @@ ifneq ($(HOST_MACHINE),mips)
 
 BROKEN_PACKAGES = \
 	$(PACKAGES_ONLY_WORK_ON_LINUX24) \
+
+BROKEN_PACKAGES = \
 	aget \
 	aspell \
 	atftp \
@@ -24,7 +26,6 @@ BROKEN_PACKAGES = \
 	 bluez2-utils \
 	cairo \
 	calc \
-	clamav \
 	dansguardian\
 	dcraw\
 	ecl \
@@ -48,35 +49,25 @@ BROKEN_PACKAGES = \
 	 vlc\
 	ficy \
 	flac \
+	  mkvtoolnix \
 	  moc\
 	ftpd-topfield \
 	gambit-c \
 	id3lib \
 	 castget \
-	glib \
-	 finch \
-	 gnokii \
-	 ncmpc \
-	 libopensync\
-	  msynctool\
-	  obexftp\
-	 pango\
-	 silc-client\
-	 syslog-ng\
-	 tshark\
 	phoneme-advanced\
+	php\
+	 appweb\
+	 eaccelerator\
 	php-apache\
 	php-fcgi\
 	php-thttpd\
 	picolisp\
 	pkgconfig\
-	gconv-modules \
-	 snownews\
 	ghostscript \
 	gdb \
 	go-lang \
 	gift-ares \
-	gift-opennap \
 	haproxy \
 	haserl \
 	ipac-ng\
@@ -101,7 +92,6 @@ BROKEN_PACKAGES = \
 	minidlna\
 	mlocate\
 	moblock\
-	mpc \
 	mpg123 \
 	mp3blaster \
 	msort\
@@ -111,36 +101,9 @@ BROKEN_PACKAGES = \
 	netatalk\
 	nget \
 	nfs-utils \
-	openldap \
-	 gnupg1 \
-	 gnupg \
-	php \
-	  appweb \
-	  eaccelerator \
 	puppy \
-	python24 \
-	  clearsilver \
-	python25 \
-	  boost \
-	   mkvtoolnix \
-	   player \
-	   srecord\
-	   uncia\
-	python26 \
-	python27\
-	python3\
-	python \
-	  $(PYTHON_PACKAGES)\
-	  bacula\
-	  dbus-python \
-	  py-setuptools \
-	   distcc \
-	  newt \
-	  svn \
 	qemacs\
 	quagga\
-	oleo\
-	pal\
 	palantir\
 	kismet \
 	libbt \
@@ -154,18 +117,12 @@ BROKEN_PACKAGES = \
 		nmap\
 	lm-sensors\
 	ntop \
-	gnu-smalltalk \
+      gnu-smalltalk \
+      gconv-modules \
+      gnupg\
 	tcl \
          eggdrop \
-	xau \
-	 fixesext \
-	 recordext \
-	 renderext \
-	  xrender\
-	 ice \
-	  sm\
-	 qemu \
-	 sdl \
+	 \
 	 x11\
 	  xt\
 	   xaw\
@@ -173,17 +130,31 @@ BROKEN_PACKAGES = \
 	  xdpyinfo\
 	  xext\
 	   xmu\
+	    xauth\
 	  xfixes\
 	  xft\
+	   pango\
 	  xpm\
 	  xterm\
 	  xtst\
-	 xauth\
+	  fixesext\
+	  ice\
+	   sm\
+	  sdl\
+	   qemu\
+	  recordext\
+	  renderext\
+	   xrender\
 	imagemagick \
 	inetutils \
+	modutils\
 	qemu-libc-i386 \
 	quickie\
 	quilt\
+	py-duplicity\
+	py-gdchart2\
+	py-rdiff-backup\
+	py-zope-interface\
 	recode\
 	rhtvision\
 	rsstail\
@@ -192,16 +163,15 @@ BROKEN_PACKAGES = \
 	scli\
 	ser\
 	slrn\
+	syslog-ng\
 	swi-prolog\
 	texinfo\
 	tcsh\
 	transmissiond\
-	xmail \
 	xmlrpc-c\
 	  rtorrent\
 	xvid \
 	x264 \
-	yougrabber \
 	$(ASTERISK_PACKAGES)\
 	$(ERLANG_PACKAGES)\
 	perl\
@@ -213,18 +183,62 @@ BROKEN_PACKAGES = \
 	uemacs\
 	upx\
 	ulogd\
+	uncia\
 	ssam\
 	stunnel\
 	streamripper\
 	syx\
 	tinyscheme\
 	tnftpd\
-	tinyproxy\
 	unfs3\
 	utf8proc\
 	util-linux\
 	wavpack\
+	
+#WRAPPER ESCAPE
+BROKEN_PACKAGES += \
+	py-psycopg2
+#CPPFLAGS for HOSTCOMPILE
+BROKEN_PACKAGES += \
+	clearsilver\
 
+#CROSSPROBLEM
+BROKEN_PACKAGES += \
+	py-bittorrent\
+
+# SOURCE missing
+BROKEN_PACKAGES += \
+	py-bluez
+
+#-lsane missing
+BROKEN_PACKAGES += \
+	hplip
+
+#empty strip
+BROKEN_PACKAGES += \
+	bacula\
+	mailman\
+	py-simplejson\
+
+BROKEN_PACKAGES += \
+	player\
+
+XXX=	python27\
+	python3\
+	python \
+	  $(PYTHON_PACKAGES)\
+	  dbus-python \
+	  py-setuptools \
+	   distcc \
+	  newt \
+	  svn \
+	python24 \
+	  clearsilver \
+	python25 \
+	  boost \
+	   player \
+	   srecord\
+	   uncia\
 ALSA-OSS_CPPFLAGS+=-U_FILE_OFFSET_BITS
 
 ZOO_CPPFLAGS+=-U_FILE_OFFSET_BITS

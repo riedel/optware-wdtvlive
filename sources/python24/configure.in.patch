@@ -46,7 +46,7 @@
 +    absconfigcommand=$(pwd)/$0
 +    mkdir -p buildpython
 +    cd buildpython
-+    CC="" CXX="" AR="" RANLIB="" LDFLAGS="" $absconfigcommand --prefix=$prefix
++    CC="" CXX="" AR="" RANLIB="" LDFLAGS="" CPPFLAGS="" $absconfigcommand --prefix=$prefix
 +    cd ..
 +    BUILDPYTHON='buildpython/python$(BUILDEXE)'
 +    BUILDPGEN='buildpython/Parser/pgen$(BUILDEXE)'

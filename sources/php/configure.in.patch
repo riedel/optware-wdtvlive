@@ -1,11 +1,60 @@
---- configure.in.orig	2006-01-11 06:19:13.000000000 -0800
-+++ configure.in	2006-04-01 20:51:44.000000000 -0800
-@@ -572,7 +572,7 @@
-   freeaddrinfo(ai);
-   exit(0);
- }
--  ],ac_cv_func_getaddrinfo=yes, ac_cv_func_getaddrinfo=no, ac_cv_func_getaddrinfo=no),
-+  ],ac_cv_func_getaddrinfo=yes, ac_cv_func_getaddrinfo=no, ac_cv_func_getaddrinfo=yes),
- ac_cv_func_getaddrinfo=no)])
- if test "$ac_cv_func_getaddrinfo" = yes; then
-   AC_DEFINE(HAVE_GETADDRINFO,1,[Define if you have the getaddrinfo function])
+*** configure.in	2011-09-08 11:30:29.816934655 +0200
+--- configure.in.orig	2011-01-07 00:01:19.000000000 +0100
+***************
+*** 1,6 ****
+--- 1,8 ----
+  ## $Id: configure.in 307193 2011-01-06 23:01:19Z iliaa $ -*- autoconf -*-
+  dnl ## Process this file with autoconf to produce a configure script.
+  
++ divert(1)
++ 
+  dnl ## Diversion 1 is the autoconf + automake setup phase. We also
+  dnl ## set the PHP version, deal with platform-specific compile
+  dnl ## options and check for the basic compile tools.
+***************
+*** 15,21 ****
+  dnl ## This is also where an SAPI interface is selected (choosing between
+  dnl ## Apache module, CGI etc.)
+  
+- sinclude(acinclude.m4)
+  dnl ## In diversion 4 we check user-configurable general settings.
+  
+  dnl ## In diversion 5 we check which extensions should be compiled.
+--- 17,22 ----
+***************
+*** 24,29 ****
+--- 25,31 ----
+  
+  dnl include Zend specific macro definitions first
+  dnl -------------------------------------------------------------------------
++ sinclude(Zend/acinclude.m4)
+  
+  dnl Basic autoconf + automake initialization, generation of config.nice.
+  dnl -------------------------------------------------------------------------
+***************
+*** 249,255 ****
+  dnl Include Zend and TSRM configurations.
+  dnl -------------------------------------------------------------------------
+  
+- sinclude(Zend/acinclude.m4)
+  sinclude(Zend/Zend.m4)
+  sinclude(TSRM/threads.m4)
+  sinclude(TSRM/tsrm.m4)
+--- 251,256 ----
+***************
+*** 633,639 ****
+    freeaddrinfo(ai);
+    exit(0);
+  }
+!   ],ac_cv_func_getaddrinfo=yes, ac_cv_func_getaddrinfo=no, ac_cv_func_getaddrinfo=yes),
+  ac_cv_func_getaddrinfo=no)])
+  if test "$ac_cv_func_getaddrinfo" = yes; then
+    AC_DEFINE(HAVE_GETADDRINFO,1,[Define if you have the getaddrinfo function])
+--- 634,640 ----
+    freeaddrinfo(ai);
+    exit(0);
+  }
+!   ],ac_cv_func_getaddrinfo=yes, ac_cv_func_getaddrinfo=no, ac_cv_func_getaddrinfo=no),
+  ac_cv_func_getaddrinfo=no)])
+  if test "$ac_cv_func_getaddrinfo" = yes; then
+    AC_DEFINE(HAVE_GETADDRINFO,1,[Define if you have the getaddrinfo function])

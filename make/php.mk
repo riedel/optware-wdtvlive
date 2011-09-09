@@ -398,33 +398,33 @@ php-source: $(DL_DIR)/$(PHP_SOURCE) $(PHP_PATCHES)
 # first, then do that first (e.g. "$(MAKE) <bar>-stage <baz>-stage").
 #
 $(PHP_BUILD_DIR)/.configured: $(DL_DIR)/$(PHP_SOURCE) $(PHP_PATCHES) make/php.mk
-	$(MAKE) bzip2-stage 
-	$(MAKE) gdbm-stage 
-	$(MAKE) libcurl-stage
-	$(MAKE) libdb-stage
-	$(MAKE) libgd-stage 
-ifeq (libiconv, $(filter libiconv, $(PACKAGES)))
-	$(MAKE) libiconv-stage
-endif
-	$(MAKE) libxml2-stage 
-	$(MAKE) libxslt-stage 
-	$(MAKE) openssl-stage 
-	$(MAKE) mysql-stage
-	$(MAKE) postgresql-stage
-	$(MAKE) freetds-stage
-	$(MAKE) unixodbc-stage
-	$(MAKE) imap-stage
-	$(MAKE) libpng-stage
-	$(MAKE) libjpeg-stage
-	$(MAKE) pcre-stage
-ifeq (openldap, $(filter openldap, $(PACKAGES)))
-	$(MAKE) openldap-stage
-	$(MAKE) cyrus-sasl-stage
-endif
-	rm -rf $(BUILD_DIR)/$(PHP_DIR) $(@D)
-	$(PHP_UNZIP) $(DL_DIR)/$(PHP_SOURCE) | tar -C $(BUILD_DIR) -xvf -
-	mv $(BUILD_DIR)/$(PHP_DIR) $(@D)
-	if test -n "$(PHP_PATCHES)"; \
+#	$(MAKE) bzip2-stage 
+#	$(MAKE) gdbm-stage 
+#	$(MAKE) libcurl-stage
+#	$(MAKE) libdb-stage
+#	$(MAKE) libgd-stage 
+#ifeq (libiconv, $(filter libiconv, $(PACKAGES)))
+#	$(MAKE) libiconv-stage
+#endif
+#	$(MAKE) libxml2-stage 
+#	$(MAKE) libxslt-stage 
+#	$(MAKE) openssl-stage 
+#	$(MAKE) mysql-stage
+#	$(MAKE) postgresql-stage
+#	$(MAKE) freetds-stage
+#	$(MAKE) unixodbc-stage
+#	$(MAKE) imap-stage
+#	$(MAKE) libpng-stage
+#	$(MAKE) libjpeg-stage
+#	$(MAKE) pcre-stage
+#ifeq (openldap, $(filter openldap, $(PACKAGES)))
+#	$(MAKE) openldap-stage
+#	$(MAKE) cyrus-sasl-stage
+#endif
+#	rm -rf $(BUILD_DIR)/$(PHP_DIR) $(@D)
+#	$(PHP_UNZIP) $(DL_DIR)/$(PHP_SOURCE) | tar -C $(BUILD_DIR) -xvf -
+#	mv $(BUILD_DIR)/$(PHP_DIR) $(@D)
+#	if test -n "$(PHP_PATCHES)"; \
 	    then cat $(PHP_PATCHES) | patch -p0 -bd $(@D); \
 	fi
 ifneq ($(HOSTCC), $(TARGET_CC))
@@ -436,8 +436,9 @@ endif
 ifeq (glibc, $(LIBC_STYLE))
 	sed -i -e 's|/usr/local /usr|$(shell cd $(TARGET_INCDIR)/..; pwd)|' $(@D)/ext/iconv/config.m4
 endif
-	autoreconf -vif $(@D)
+	-(cd $(@D); autoreconf2.13 -f -i )
 	(cd $(@D); \
+	        SED=sed\
 		$(TARGET_CONFIGURE_OPTS) \
 		CPPFLAGS="$(STAGING_CPPFLAGS) $(PHP_CPPFLAGS)" \
 		LDFLAGS="$(STAGING_LDFLAGS) $(PHP_LDFLAGS)" \

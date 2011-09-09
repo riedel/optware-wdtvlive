@@ -41,7 +41,7 @@
 +    absconfigcommand=$(pwd)/$0
 +    mkdir -p buildpython3
 +    cd buildpython3
-+    CC="" CXX="" AR="" RANLIB="" LDFLAGS="" $absconfigcommand --prefix=$prefix
++    CC="" CXX="" AR="" RANLIB="" LDFLAGS="" CPPFLAGS="" $absconfigcommand --prefix=$prefix
 +    cd ..
 +    BUILDPYTHON='buildpython3/python$(BUILDEXE)'
 +    BUILDPGEN='buildpython3/Parser/pgen$(BUILDEXE)'

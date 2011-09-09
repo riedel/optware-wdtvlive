@@ -127,7 +127,7 @@ $(PY-CODEVILLE_BUILD_DIR)/.built: $(PY-CODEVILLE_BUILD_DIR)/.configured
 	rm -f $(PY-CODEVILLE_BUILD_DIR)/.built
 	(cd $(PY-CODEVILLE_BUILD_DIR); \
 	$(TARGET_CONFIGURE_OPTS) LDSHARED='$(TARGET_CC) -shared' \
-	    python2.4 setup.py build; \
+	    $(HOST_STAGING_PREFIX)/bin/python2.4 setup.py build; \
 	)
 	touch $(PY-CODEVILLE_BUILD_DIR)/.built
 
@@ -179,7 +179,7 @@ $(PY-CODEVILLE_IPK_DIR)/CONTROL/control:
 $(PY-CODEVILLE_IPK): $(PY-CODEVILLE_BUILD_DIR)/.built
 	rm -rf $(PY-CODEVILLE_IPK_DIR) $(BUILD_DIR)/py-codeville_*_$(TARGET_ARCH).ipk
 	(cd $(PY-CODEVILLE_BUILD_DIR); \
-	    python2.4 setup.py install --root=$(PY-CODEVILLE_IPK_DIR) --prefix=/opt; \
+	    $(HOST_STAGING_PREFIX)/bin/python2.4 setup.py install --root=$(PY-CODEVILLE_IPK_DIR) --prefix=/opt; \
 	)
 #	-$(STRIP_COMMAND) `find $(PY-CODEVILLE_IPK_DIR)/opt/lib/python2.4/site-packages/codeville -name '*.so'`
 	$(MAKE) $(PY-CODEVILLE_IPK_DIR)/CONTROL/control

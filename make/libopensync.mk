@@ -80,7 +80,7 @@ LIBOPENSYNC_IPK=$(BUILD_DIR)/libopensync_$(LIBOPENSYNC_VERSION)-$(LIBOPENSYNC_IP
 #
 $(DL_DIR)/$(LIBOPENSYNC_SOURCE):
 	$(WGET) -O $(DL_DIR)/$(LIBOPENSYNC_SOURCE) "$(LIBOPENSYNC_SITE)/$(LIBOPENSYNC_SOURCE)?rev=&format=raw" || \
-	$(WGET) -P $(DL_DIR) $(SOURCES_NLO_SITE)/$(LIBOPENSYNC_SOURCE)
+	$(WGET) -O $(@) $(SOURCES_NLO_SITE)/$(LIBOPENSYNC_SOURCE)
 
 #
 # The source code depends on it existing within the download directory.

@@ -23,7 +23,7 @@
 #
 PY-TGFASTDATA_VERSION=0.9a5
 PY-TGFASTDATA_SVN_TAG=$(PY-TGFASTDATA_VERSION)
-PY-TGFASTDATA_REPOSITORY=http://svn.turbogears.org/projects/FastData/tags/$(PY-TGFASTDATA_SVN_TAG)
+PY-TGFASTDATA_REPOSITORY=svn://svn.code.sf.net/p/turbogears1/code/tags/$(PY-TGFASTDATA_SVN_TAG)
 PY-TGFASTDATA_DIR=TGFastData-$(PY-TGFASTDATA_VERSION)
 PY-TGFASTDATA_MAINTAINER=NSLU2 Linux <nslu2-linux@yahoogroups.com>
 PY-TGFASTDATA_DESCRIPTION=An TurboGears extension that provides automatic user interface generation based upon an application model objects.
@@ -176,7 +176,7 @@ $(PY-TGFASTDATA_IPK): $(PY-TGFASTDATA_BUILD_DIR)/.built
 	rm -rf $(PY-TGFASTDATA_IPK_DIR) $(BUILD_DIR)/py-tgfastdata_*_$(TARGET_ARCH).ipk
 	(cd $(PY-TGFASTDATA_BUILD_DIR); \
 	PYTHONPATH=$(STAGING_LIB_DIR)/python2.4/site-packages \
-	python2.4 setup.py install --root=$(PY-TGFASTDATA_IPK_DIR) --prefix=/opt)
+	$(HOST_STAGING_PREFIX)/bin/python2.4 setup.py install --root=$(PY-TGFASTDATA_IPK_DIR) --prefix=/opt)
 	$(MAKE) $(PY-TGFASTDATA_IPK_DIR)/CONTROL/control
 	echo $(PY-TGFASTDATA_CONFFILES) | sed -e 's/ /\n/g' > $(PY-TGFASTDATA_IPK_DIR)/CONTROL/conffiles
 	cd $(BUILD_DIR); $(IPKG_BUILD) $(PY-TGFASTDATA_IPK_DIR)

@@ -19,8 +19,8 @@
 #
 # You should change all these variables to suit your package.
 #
-STUNNEL_SITE=http://www.stunnel.org/download/stunnel/src
-STUNNEL_VERSION=4.26
+STUNNEL_SITE=ftp://ftp.stunnel.org/stunnel/
+STUNNEL_VERSION=4.42
 STUNNEL_SOURCE=stunnel-$(STUNNEL_VERSION).tar.gz
 STUNNEL_DIR=stunnel-$(STUNNEL_VERSION)
 STUNNEL_UNZIP=zcat
@@ -48,7 +48,7 @@ STUNNEL_CONFFILES=/opt/etc/stunnel/stunnel.conf \
 # which they should be applied to the source code.
 #
 STUNNEL_PATCHES= \
-	$(STUNNEL_SOURCE_DIR)/configure.patch
+#	$(STUNNEL_SOURCE_DIR)/configure.patch
 
 #
 # If the compilation of the package requires additional
