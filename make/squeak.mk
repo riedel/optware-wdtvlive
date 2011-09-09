@@ -94,11 +94,11 @@ SQUEAK_IMG_SRC=SqueakV3.sources
 # then it will be fetched from the site using wget.
 #
 $(DL_DIR)/$(SQUEAK_VM_SRC):
-	$(WGET) -P $(@D) $(SQUEAK_SITE)/$((@F) ||
+	$(WGET) -P $(@D) $(SQUEAK_SITE)/$(@F) ||\
 	$(WGET) -P $(@D) $(SOURCES_NLO_SITE)/$(@F)
 
 $(DL_DIR)/$(SQUEAK_IMG_SRC).gz:
-	$(WGET) -P $(@D) $(SQUEAK_IMG_SRC_SITE)/$(@F) ||
+	$(WGET) -P $(@D) $(SQUEAK_IMG_SRC_SITE)/$(@F) ||\
 	$(WGET) -P $(@D) $(SOURCES_NLO_SITE)/$(@F)
 
 #

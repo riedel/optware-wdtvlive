@@ -77,7 +77,7 @@ PICOLISP_IPK=$(BUILD_DIR)/picolisp_$(PICOLISP_VERSION)-$(PICOLISP_IPK_VERSION)_$
 #
 $(DL_DIR)/$(PICOLISP_SOURCE):
 	$(WGET) -O $(DL_DIR)/$(PICOLISP_SOURCE) "$(PICOLISP_SITE)$(PICOLISP_SOURCE)" || \
-	$(WGET) -P $(DL_DIR) $(SOURCES_NLO_SITE)/$(PICOLISP_SOURCE)
+	$(WGET) -O $(DL_DIR)/$(PICOLISP_SOURCE) $(SOURCES_NLO_SITE)/$(PICOLISP_SOURCE)
 
 #
 # The source code depends on it existing within the download directory.

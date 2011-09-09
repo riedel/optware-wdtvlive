@@ -88,10 +88,11 @@ $(MIAU_BUILD_DIR)/.configured: $(DL_DIR)/$(MIAU_SOURCE)
 
 miau-unpack: $(MIAU_BUILD_DIR)/.configured
 
-$(MIAU_BUILD_DIR)/src/miau: $(MIAU_BUILD_DIR)/.configured
+$(MIAU_BUILD_DIR)/.built: $(MIAU_BUILD_DIR)/.configured
 	$(MAKE) -C $(MIAU_BUILD_DIR)
+	touch $@
 
-miau: $(MIAU_BUILD_DIR)/src/miau
+miau: $(MIAU_BUILD_DIR)/.built
 
 $(MIAU_IPK_DIR)/CONTROL/control:
 	@install -d $(MIAU_IPK_DIR)/CONTROL
@@ -107,7 +108,7 @@ $(MIAU_IPK_DIR)/CONTROL/control:
 	@echo "Depends: $(MIAU_DEPENDS)" >>$@
 	@echo "Conflicts: $(MIAU_CONFLICTS)" >>$@
 
-$(MIAU_IPK): $(MIAU_BUILD_DIR)/src/miau
+$(MIAU_IPK): $(MIAU_BUILD_DIR)/.built
 	rm -rf $(MIAU_IPK_DIR) $(BUILD_DIR)/miau_*_$(TARGET_ARCH).ipk
 	install -d $(MIAU_IPK_DIR)/opt/bin
 	$(STRIP_COMMAND) $(MIAU_BUILD_DIR)/src/miau -o $(MIAU_IPK_DIR)/opt/bin/miau

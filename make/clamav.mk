@@ -213,8 +213,8 @@ $(CLAMAV_IPK): $(CLAMAV_BUILD_DIR)/.built
 	install -m 755 $(CLAMAV_SOURCE_DIR)/postinst $(CLAMAV_IPK_DIR)/CONTROL/postinst
 #	install -m 755 $(CLAMAV_SOURCE_DIR)/prerm $(CLAMAV_IPK_DIR)/CONTROL/prerm
 	echo $(CLAMAV_CONFFILES) | sed -e 's/ /\n/g' > $(CLAMAV_IPK_DIR)/CONTROL/conffiles
-	rm $(CLAMAV_IPK_DIR)/opt/bin/clamav-config # contains staging paths
-	rm $(CLAMAV_IPK_DIR)/opt/lib/libclamav.la # contains staging paths
+	rm -f $(CLAMAV_IPK_DIR)/opt/bin/clamav-config # contains staging paths
+	rm -f $(CLAMAV_IPK_DIR)/opt/lib/libclamav.la # contains staging paths
 	rm -rf $(CLAMAV_IPK_DIR)/opt/lib/pkgconfig/ # contains staging paths
 	cd $(BUILD_DIR); $(IPKG_BUILD) $(CLAMAV_IPK_DIR)
 

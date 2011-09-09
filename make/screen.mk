@@ -131,14 +131,15 @@ screen-unpack: $(SCREEN_BUILD_DIR)/.configured
 # This builds the actual binary.  You should change the target to refer
 # directly to the main binary which is built.
 #
-$(SCREEN_BUILD_DIR)/screen: $(SCREEN_BUILD_DIR)/.configured
+$(SCREEN_BUILD_DIR)/.built: $(SCREEN_BUILD_DIR)/.configured
 	$(MAKE) -C $(SCREEN_BUILD_DIR)
+	touch $@
 
 #
 # You should change the dependency to refer directly to the main binary
 # which is built.
 #
-screen: $(SCREEN_BUILD_DIR)/screen
+screen: $(SCREEN_BUILD_DIR)/.build
 
 #
 # If you are building a library, then you need to stage it too.
@@ -185,7 +186,7 @@ $(SCREEN_IPK_DIR)/CONTROL/control:
 #
 # You may need to patch your application to make it use these locations.
 #
-$(SCREEN_IPK): $(SCREEN_BUILD_DIR)/screen
+$(SCREEN_IPK): $(SCREEN_BUILD_DIR)/.built
 	rm -rf $(SCREEN_IPK_DIR) $(BUILD_DIR)/screen_*_$(TARGET_ARCH).ipk
 	$(MAKE) -C $(SCREEN_BUILD_DIR) DESTDIR=$(SCREEN_IPK_DIR) install
 	$(STRIP_COMMAND) $(SCREEN_IPK_DIR)/opt/bin/screen-$(SCREEN_VERSION)
@@ -207,6 +208,7 @@ screen-ipk: $(SCREEN_IPK)
 #
 screen-clean:
 	-$(MAKE) -C $(SCREEN_BUILD_DIR) clean
+	rm -f $(SCREEN_BUILD_DIR)/.built
 
 #
 # This is called from the top level makefile to clean all dynamically created

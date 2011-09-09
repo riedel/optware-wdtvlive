@@ -20,7 +20,7 @@
 # You should change all these variables to suit your package.
 #
 LIBCAPI20_SITE=ftp://ftp.melware.net/capi-utils
-LIBCAPI20_VERSION=3.0.5-cm
+LIBCAPI20_VERSION=3.0.5-cm2
 LIBCAPI20_SOURCE=libcapi20-$(LIBCAPI20_VERSION).tar.gz
 LIBCAPI20_DIR=libcapi20-$(LIBCAPI20_VERSION)
 LIBCAPI20_UNZIP=zcat

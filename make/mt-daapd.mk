@@ -69,10 +69,11 @@ endif
 
 mt-daapd-unpack: $(MT_DAAPD_BUILD_DIR)/.configured
 
-$(MT_DAAPD_BUILD_DIR)/src/mt-daapd: $(MT_DAAPD_BUILD_DIR)/.configured
+$(MT_DAAPD_BUILD_DIR)/.built: $(MT_DAAPD_BUILD_DIR)/.configured
 	$(MAKE) -C $(@D) CFLAGS="-DSTRSEP"
+	touch $(@)
 
-mt-daapd: zlib gdbm libid3tag $(MT_DAAPD_BUILD_DIR)/src/mt-daapd
+mt-daapd: zlib gdbm libid3tag $(MT_DAAPD_BUILD_DIR)/.built
 
 #
 # This rule creates a control file for iipkg.  It is no longer
@@ -92,7 +93,7 @@ $(MT_DAAPD_IPK_DIR)/CONTROL/control:
 	@echo "Depends: $(MT_DAAPD_DEPENDS)" >>$@
 	@echo "Conflicts: $(MT_DAAPD_CONFLICTS)" >>$@
 
-$(MT_DAAPD_IPK): $(MT_DAAPD_BUILD_DIR)/src/mt-daapd
+$(MT_DAAPD_IPK): $(MT_DAAPD_BUILD_DIR)/.built
 	rm -rf $(MT_DAAPD_IPK_DIR) $(BUILD_DIR)/mt-daapd_*_$(TARGET_ARCH).ipk
 	install -d $(MT_DAAPD_IPK_DIR)/opt/sbin
 	$(STRIP_COMMAND) $(MT_DAAPD_BUILD_DIR)/src/mt-daapd -o $(MT_DAAPD_IPK_DIR)/opt/sbin/mt-daapd

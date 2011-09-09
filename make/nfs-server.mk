@@ -123,15 +123,16 @@ nfs-server-unpack: $(NFS_SERVER_BUILD_DIR)/.configured
 # This builds the actual binary.  You should change the target to refer
 # directly to the main binary which is built.
 #
-$(NFS_SERVER_BUILD_DIR)/rpc.nfsd: $(NFS_SERVER_BUILD_DIR)/.configured
+$(NFS_SERVER_BUILD_DIR)/.built: $(NFS_SERVER_BUILD_DIR)/.configured
 	$(MAKE) -C $(NFS_SERVER_BUILD_DIR) \
 		CC=$(TARGET_CC) AR=$(TARGET_AR) RANLIB=$(TARGET_RANLIB)
+	touch $(@)
 
 #
 # You should change the dependency to refer directly to the main binary
 # which is built.
 #
-nfs-server: $(NFS_SERVER_BUILD_DIR)/rpc.nfsd
+nfs-server: $(NFS_SERVER_BUILD_DIR)/.built
 
 #
 # This rule creates a control file for ipkg.  It is no longer
@@ -164,7 +165,7 @@ $(NFS_SERVER_IPK_DIR)/CONTROL/control:
 #
 # You may need to patch your application to make it use these locations.
 #
-$(NFS_SERVER_IPK): $(NFS_SERVER_BUILD_DIR)/rpc.nfsd
+$(NFS_SERVER_IPK): $(NFS_SERVER_BUILD_DIR)/.built
 	rm -rf $(NFS_SERVER_IPK_DIR) $(NFS_SERVER_IPK)
 	install -d $(NFS_SERVER_IPK_DIR)/opt/sbin
 	$(STRIP_COMMAND) $(NFS_SERVER_BUILD_DIR)/rpc.nfsd -o $(NFS_SERVER_IPK_DIR)/opt/sbin/rpc.nfsd
@@ -184,6 +185,7 @@ nfs-server-ipk: $(NFS_SERVER_IPK)
 #
 nfs-server-clean:
 	-$(MAKE) -C $(NFS_SERVER_BUILD_DIR) clean
+	rm  -f $(NFS_SERVER_BUILD_DIR)/.built
 
 #
 # This is called from the top level makefile to clean all dynamically created

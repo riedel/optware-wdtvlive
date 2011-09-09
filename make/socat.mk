@@ -118,7 +118,7 @@ $(SOCAT_BUILD_DIR)/.configured: $(DL_DIR)/$(SOCAT_SOURCE) $(SOCAT_PATCHES) make/
 	# Not very sure about platforms other than nslu2, may need adjust
 	(cd $(@D); \
 		$(TARGET_CONFIGURE_OPTS) \
-		CPPFLAGS="$(STAGING_CPPFLAGS) $(SOCAT_CPPFLAGS)" \
+		CPPFLAGS="$(filter-out -Wall,$(STAGING_CPPFLAGS)) $(SOCAT_CPPFLAGS)" \
 		LDFLAGS="$(STAGING_LDFLAGS) $(SOCAT_LDFLAGS)" \
 		sc_cv_sys_crdly_shift=9 \
 		sc_cv_sys_tabdly_shift=11 \

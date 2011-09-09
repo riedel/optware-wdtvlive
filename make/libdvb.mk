@@ -26,7 +26,7 @@
 # from your name or email address.  If you leave MAINTAINER set to
 # "NSLU2 Linux" other developers will feel free to edit.
 #
-LIBDVB_SITE=http://www.metzlerbros.org/dvb
+LIBDVB_SITE=http://sources.nslu2-linux.org/sources/#http://www.metzlerbros.org/dvb
 LIBDVB_VERSION=0.5.5.1
 LIBDVB_SOURCE=libdvb-$(LIBDVB_VERSION).tar.gz
 LIBDVB_DIR=libdvb-$(LIBDVB_VERSION)

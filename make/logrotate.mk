@@ -14,15 +14,13 @@
 #
 # You should change all these variables to suit your package.
 #
-#LOGROTATE_SITE=http://ftp.debian.org/debian/pool/main/l/logrotate
+LOGROTATE_SITE=http://sources.nslu2-linux.org/sources/
+
 LOGROTATE_VERSION=3.7.5
 LOGROTATE_CVS_REPO=:pserver:anonymous@rhlinux.redhat.com:/usr/local/CVS
-LOGROTATE_CVS_TAG=r3-7-5
-ifdef LOGROTATE_CVS_TAG
+#LOGROTATE_CVS_TAG=r3-7-5
 LOGROTATE_SOURCE=logrotate-cvs-$(LOGROTATE_VERSION).tar.gz
-else
-LOGROTATE_SOURCE=logrotate_$(LOGROTATE_VERSION).orig.tar.gz
-endif
+
 LOGROTATE_DIR=logrotate-$(LOGROTATE_VERSION)
 LOGROTATE_UNZIP=zcat
 LOGROTATE_MAINTAINER=NSLU2 Linux <nslu2-linux@yahoogroups.com>

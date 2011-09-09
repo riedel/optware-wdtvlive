@@ -134,20 +134,21 @@ libdb-unpack: $(LIBDB_BUILD_DIR)/.configured
 # This builds the actual binary.  You should change the target to refer
 # directly to the main binary which is built.
 #
-$(LIBDB_BUILD_DIR)/build_unix/.libs/libdb-$(LIBDB_LIB_VERSION).a: $(LIBDB_BUILD_DIR)/.configured
+$(LIBDB_BUILD_DIR)/.built: $(LIBDB_BUILD_DIR)/.configured
 	$(MAKE) -C $(LIBDB_BUILD_DIR)/build_unix
+	touch $@
 
 #
 # You should change the dependency to refer directly to the main binary
 # which is built.
 #
 # Note: this should be path where libdb really appears, might need to fix
-libdb: $(LIBDB_BUILD_DIR)/build_unix/.libs/libdb-$(LIBDB_LIB_VERSION).a
+libdb: $(LIBDB_BUILD_DIR)/.built
 
 #
 # If you are building a library, then you need to stage it too.
 #
-$(LIBDB_BUILD_DIR)/.staged: $(LIBDB_BUILD_DIR)/build_unix/.libs/libdb-$(LIBDB_LIB_VERSION).a
+$(LIBDB_BUILD_DIR)/.staged:# $(LIBDB_BUILD_DIR)/build_unix/.libs/libdb-$(LIBDB_LIB_VERSION).a
 	rm -f $@
 	$(MAKE) -C $(LIBDB_BUILD_DIR)/build_unix DESTDIR=$(STAGING_DIR) install_setup install_include install_lib
 	rm -f $(STAGING_LIB_DIR)/libdb-$(LIBDB_LIB_VERSION).la
@@ -184,7 +185,7 @@ $(LIBDB_IPK_DIR)/CONTROL/control:
 #
 # You may need to patch your application to make it use these locations.
 #
-$(LIBDB_IPK): $(LIBDB_BUILD_DIR)/build_unix/.libs/libdb-$(LIBDB_LIB_VERSION).a
+$(LIBDB_IPK): $(LIBDB_BUILD_DIR)/.built
 	rm -rf $(LIBDB_IPK_DIR) $(LIBDB_IPK)
 	$(MAKE) -C $(LIBDB_BUILD_DIR)/build_unix DESTDIR=$(LIBDB_IPK_DIR) install_setup install_include install_lib
 	-$(STRIP_COMMAND) $(LIBDB_IPK_DIR)/opt/lib/*.so

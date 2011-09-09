@@ -51,18 +51,20 @@ $(TERMCAP_BUILD_DIR)/.configured: $(DL_DIR)/$(TERMCAP_SOURCE)
 
 termcap-unpack: $(TERMCAP_BUILD_DIR)/.configured
 
-$(TERMCAP_BUILD_DIR)/libtermcap.a: $(TERMCAP_BUILD_DIR)/.configured
+$(TERMCAP_BUILD_DIR)/.built: $(TERMCAP_BUILD_DIR)/.configured
 	make -C $(TERMCAP_BUILD_DIR) AR=$(TARGET_AR)
+	touch $@
 
-termcap: $(TERMCAP_BUILD_DIR)/libtermcap.a
+termcap: $(TERMCAP_BUILD_DIR)/.built
 
-$(STAGING_DIR)/opt/lib/libtermcap.a: $(TERMCAP_BUILD_DIR)/libtermcap.a
+$(TERMCAP_BUILD_DIR)/.staged:  $(TERMCAP_BUILD_DIR)/.built
 	install -d $(STAGING_DIR)/opt/include
 	install -m 644 $(TERMCAP_BUILD_DIR)/termcap.h $(STAGING_DIR)/opt/include
 	install -d $(STAGING_DIR)/opt/lib
 	install -m 644 $(TERMCAP_BUILD_DIR)/libtermcap.a $(STAGING_DIR)/opt/lib
+	touch $@
 
-termcap-stage: $(STAGING_DIR)/opt/lib/libtermcap.a
+termcap-stage: $(TERMCAP_BUILD_DIR)/.staged
 
 $(TERMCAP_IPK_DIR)/CONTROL/control:
 	@install -d $(TERMCAP_IPK_DIR)/CONTROL
@@ -78,7 +80,7 @@ $(TERMCAP_IPK_DIR)/CONTROL/control:
 	@echo "Depends: $(TERMCAP_DEPENDS)" >>$@
 	@echo "Conflicts: $(TERMCAP_CONFLICTS)" >>$@
 
-$(TERMCAP_IPK): $(TERMCAP_BUILD_DIR)/libtermcap.a
+$(TERMCAP_IPK): $(TERMCAP_BUILD_DIR)/.built
 	install -d $(TERMCAP_IPK_DIR)/opt/include
 	install -m 644 $(TERMCAP_BUILD_DIR)/termcap.h $(TERMCAP_IPK_DIR)/opt/include/termcap.h
 	install -d $(TERMCAP_IPK_DIR)/opt/lib

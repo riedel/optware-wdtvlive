@@ -11,8 +11,10 @@
 #
 
 NEWT_REPOSITORY=:pserver:anonymous@elvis.redhat.com:/usr/local/CVS
+NEWT_SITE=https://fedorahosted.org/releases/n/e/newt/
 NEWT_DIR=newt-$(NEWT_VERSION)
 NEWT_SOURCE=newt-$(NEWT_VERSION).tar.gz
+
 NEWT_MAINTAINER=NSLU2 Linux <nslu2-linux@yahoogroups.com>
 NEWT_DESCRIPTION=Not Erik''s Windowing Toolkit - text mode windowing with slang.
 NEWT_SECTION=lib
@@ -98,7 +100,9 @@ $(DL_DIR)/$(NEWT_SOURCE):
 		cvs -d $(NEWT_REPOSITORY) -z3 co $(NEWT_CVS_OPTS) -d $(NEWT_DIR) newt && \
 		tar -czf $@ $(NEWT_DIR) && \
 		rm -rf $(NEWT_DIR) \
-	)
+	)||\
+	wget -O $@ $(NEWT_SITE)/$(NEWT_SOURCE)
+
 
 newt-source: $(DL_DIR)/$(NEWT_SOURCE)
 

@@ -112,7 +112,7 @@ php-apache-source: $(DL_DIR)/$(PHP_SOURCE)
 $(PHP_APACHE_BUILD_DIR)/.configured: $(PHP_APACHE_PATCHES) make/php-apache.mk
 	$(MAKE) $(DL_DIR)/$(PHP_SOURCE)
 	$(MAKE) apache-stage libxml2-stage
-	rm -rf $(BUILD_DIR)/$(PHP_DIR) $(@D)
+	rm -rf $(@D)
 	$(PHP_UNZIP) $(DL_DIR)/$(PHP_SOURCE) | tar -C $(BUILD_DIR) -xvf -
 	mv $(BUILD_DIR)/$(PHP_DIR) $(@D)
 	cat $(PHP_APACHE_PATCHES) | patch -p0 -d $(@D)

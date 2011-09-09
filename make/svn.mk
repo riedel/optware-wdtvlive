@@ -150,7 +150,9 @@ $(SVN_BUILD_DIR)/.configured: $(DL_DIR)/$(SVN_SOURCE) $(SVN_PATCHES)
 ifeq (openldap, $(filter openldap, $(PACKAGES)))
 	$(MAKE) openldap-stage
 endif
+ifneq (,$(filter python26, $(PACKAGES)))
 	$(MAKE) python26-stage python26-host-stage
+endif
 ifneq (,$(filter perl, $(PACKAGES)))
 	$(MAKE) perl-stage
 endif
@@ -236,7 +238,10 @@ $(SVN_BUILD_DIR)/.pl-built: $(SVN_BUILD_DIR)/.built
 #
 svn-py: $(SVN_BUILD_DIR)/.py-built
 svn-pl: $(SVN_BUILD_DIR)/.pl-built
-svn: $(SVN_BUILD_DIR)/.built $(SVN_BUILD_DIR)/.py-built $(SVN_BUILD_DIR)/.pl-built
+svn: $(SVN_BUILD_DIR)/.built $(SVN_BUILD_DIR)/.py-built
+ifneq (,$(filter perl, $(PACKAGES)))
+svn: $(SVN_BUILD_DIR)/.pl-built
+endif
 
 #
 # If you are building a library, then you need to stage it too.

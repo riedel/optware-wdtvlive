@@ -94,6 +94,9 @@ finch-source: $(DL_DIR)/$(FINCH_SOURCE) $(FINCH_PATCHES)
 # If the package uses  GNU libtool, you should invoke $(PATCH_LIBTOOL) as
 # shown below to make various patches to it.
 #
+ifeq (, $(filter avahi, $(PACKAGES)))
+DISABLE_AVAHI=--disable-avahi 
+endif
 $(FINCH_BUILD_DIR)/.configured: $(DL_DIR)/$(FINCH_SOURCE) $(FINCH_PATCHES) make/finch.mk
 	$(MAKE) glib-stage gnutls-stage libidn-stage libxml2-stage ncursesw-stage
 ifneq (, $(filter avahi, $(PACKAGES)))
@@ -130,6 +133,7 @@ endif
 		--without-x \
 		--disable-gstreamer \
 		--disable-meanwhile \
+		$(DISABLE_AVAHI) \
 		--disable-dbus \
 		--disable-perl \
 		--disable-tcl \

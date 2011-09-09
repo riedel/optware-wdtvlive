@@ -125,7 +125,7 @@ py-pyro-unpack: $(PY-PYRO_BUILD_DIR)/.configured
 $(PY-PYRO_BUILD_DIR)/.built: $(PY-PYRO_BUILD_DIR)/.configured
 	rm -f $(PY-PYRO_BUILD_DIR)/.built
 	(cd $(PY-PYRO_BUILD_DIR); \
-	    python2.4 setup.py build; \
+	    $(HOST_STAGING_PREFIX)/bin/python2.4 setup.py build; \
 	)
 	touch $(PY-PYRO_BUILD_DIR)/.built
 
@@ -178,7 +178,7 @@ $(PY-PYRO_IPK): $(PY-PYRO_BUILD_DIR)/.built
 	rm -rf $(PY-PYRO_IPK_DIR) $(BUILD_DIR)/py-pyro_*_$(TARGET_ARCH).ipk
 	(cd $(PY-PYRO_BUILD_DIR); \
 	    PYTHONPATH=$(STAGING_LIB_DIR)/python2.4/site-packages \
-	    python2.4 -c "import setuptools; execfile('setup.py')" \
+	    $(HOST_STAGING_PREFIX)/bin/python2.4 -c "import setuptools; execfile('setup.py')" \
 		install --root=$(PY-PYRO_IPK_DIR) --prefix=/opt; \
 	)
 	$(MAKE) $(PY-PYRO_IPK_DIR)/CONTROL/control
