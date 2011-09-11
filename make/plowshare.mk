@@ -21,8 +21,8 @@
 # "NSLU2 Linux" other developers will feel free to edit.
 #
 PLOWSHARE_SITE=http://plowshare.googlecode.com/files
-PLOWSHARE_VERSION=0.9.1
-PLOWSHARE_SOURCE=plowshare-$(PLOWSHARE_VERSION).tgz
+PLOWSHARE_VERSION=snapshot-git20110904
+PLOWSHARE_SOURCE=plowshare-$(PLOWSHARE_VERSION).tar.gz
 PLOWSHARE_DIR=plowshare-$(PLOWSHARE_VERSION)
 PLOWSHARE_UNZIP=zcat
 PLOWSHARE_MAINTAINER=NSLU2 Linux <nslu2-linux@yahoogroups.com>
