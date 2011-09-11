@@ -46,7 +46,7 @@ RECODE_IPK_VERSION=3
 # RECODE_PATCHES should list any patches, in the the order in
 # which they should be applied to the source code.
 #
-#RECODE_PATCHES=$(RECODE_SOURCE_DIR)/configure.patch
+RECODE_PATCHES=$(RECODE_SOURCE_DIR)/booltype.patch
 
 #
 # If the compilation of the package requires additional
