@@ -81,7 +81,6 @@ BROKEN_PACKAGES = \
 	libdvb\
 	libgc\
 	 w3m\
-	liblcms\
 	libmad\
 	 madplay\
 	libnsl\
@@ -145,7 +144,6 @@ BROKEN_PACKAGES = \
 	  recordext\
 	  renderext\
 	   xrender\
-	imagemagick \
 	inetutils \
 	modutils\
 	qemu-libc-i386 \
@@ -155,7 +153,6 @@ BROKEN_PACKAGES = \
 	py-gdchart2\
 	py-rdiff-backup\
 	py-zope-interface\
-	recode\
 	rhtvision\
 	rsstail\
 	sablevm\
@@ -243,6 +240,8 @@ ALSA-OSS_CPPFLAGS+=-U_FILE_OFFSET_BITS
 
 ZOO_CPPFLAGS+=-U_FILE_OFFSET_BITS
 POLIPO_CPPFLAGS+=-U_FILE_OFFSET_BITS
+
+IMAGEMAGICK_CPPFLAGS+=-U_FILE_OFFSET_BITS
 
 X264_CPPFLAGS+=-fPIC
 endif
