@@ -1,0 +1,19 @@
+*** src/recodext.h.orig	2011-09-11 13:20:18.073285204 +0200
+--- src/recodext.h	2011-09-11 13:20:23.176529987 +0200
+***************
+*** 218,224 ****
+      enum recode_symbol_type type : 3;
+  
+      /* Non zero if this one should be ignored.  */
+!     bool ignore : 2;
+    };
+  
+  struct recode_surface_list
+--- 218,224 ----
+      enum recode_symbol_type type : 3;
+  
+      /* Non zero if this one should be ignored.  */
+!     int ignore : 2;
+    };
+  
+  struct recode_surface_list
