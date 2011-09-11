@@ -11,7 +11,7 @@
 # if there are reasons.
 #
 SISPMCTL_SITE=http://$(SOURCEFORGE_MIRROR)/sourceforge/sispmctl
-SISPMCTL_VERSION=2.7
+SISPMCTL_VERSION=3.0
 SISPMCTL_SOURCE=sispmctl-$(SISPMCTL_VERSION).tar.gz
 SISPMCTL_DIR=sispmctl-$(SISPMCTL_VERSION)
 SISPMCTL_UNZIP=zcat
@@ -26,7 +26,7 @@ SISPMCTL_CONFLICTS=
 #
 # SISPMCTL_IPK_VERSION should be incremented when the ipk changes.
 #
-SISPMCTL_IPK_VERSION=1
+SISPMCTL_IPK_VERSION=2
 
 #
 # SISPMCTL_CONFFILES should be a list of user-editable files
@@ -36,7 +36,7 @@ SISPMCTL_IPK_VERSION=1
 # SISPMCTL_PATCHES should list any patches, in the the order in
 # which they should be applied to the source code.
 #
-#SISPMCTL_PATCHES=$(SISPMCTL_SOURCE_DIR)/configure.patch
+SISPMCTL_PATCHES=$(SISPMCTL_SOURCE_DIR)/homedir.patch
 
 #
 # If the compilation of the package requires additional

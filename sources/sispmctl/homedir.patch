@@ -1,0 +1,19 @@
+*** src/main.h.orig	2011-09-11 12:32:33.147829363 +0200
+--- src/main.h	2011-09-11 12:35:27.436808541 +0200
+***************
+*** 35,41 ****
+  #endif
+  
+  
+! #define HOMEDIR	"/usr/local/share/httpd/sispmctl/doc"
+  
+  extern int verbose;
+  
+--- 35,41 ----
+  #endif
+  
+  
+! #define HOMEDIR	"/opt/share/httpd/sispmctl/doc"
+  
+  extern int verbose;
+  
