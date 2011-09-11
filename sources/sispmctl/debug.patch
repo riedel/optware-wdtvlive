@@ -1,0 +1,58 @@
+*** src/main.c.orig	2011-09-11 12:55:53.267827028 +0200
+--- src/main.c	2011-09-11 13:02:44.408328257 +0200
+***************
+*** 53,59 ****
+  
+  char* homedir=0;
+  extern int errno;
+! int debug=1;
+  int verbose=1;
+  
+  
+--- 53,59 ----
+  
+  char* homedir=0;
+  extern int errno;
+! int debug=0;
+  int verbose=1;
+  
+  
+***************
+*** 273,278 ****
+--- 273,279 ----
+            "   'D'   - apply to device with given serial number\n"
+            "   'n'   - show result numerically\n"
+            "   'q'   - quiet mode, no explanations - but errors\n"
++           "   'V'   - extra verbose debug info\n"
+            "   'a'   - get plannification for outlet\n"
+            "   'A'   - set plannification for outlet\n"
+            "           '-A<num>'        - select outlet\n"
+***************
+*** 378,384 ****
+      bindaddr=BINDADDR;
+  #endif
+  
+!   while( (c=getopt(argc, argv,"i:o:f:t:a:A:b:g:m:lqvhnsd:D:u:p:")) != -1 )
+    {
+      if ((c != 'h') && (c != 'v') && (count == 0)) {
+        fprintf(stderr, "No GEMBIRD SiS-PM found. Check USB connections, please!\n");
+--- 379,385 ----
+      bindaddr=BINDADDR;
+  #endif
+  
+!   while( (c=getopt(argc, argv,"i:o:f:t:a:A:b:g:m:lqvVhnsd:D:u:p:")) != -1 )
+    {
+      if ((c != 'h') && (c != 'v') && (count == 0)) {
+        fprintf(stderr, "No GEMBIRD SiS-PM found. Check USB connections, please!\n");
+***************
+*** 660,665 ****
+--- 661,669 ----
+        	case 'q':
+  	        verbose=0;
+      	    break;
++       	case 'V':
++ 	        debug=1;
++     	    break;
+        	case 'n':
+  	        numeric=2-numeric;
+  	        break;
