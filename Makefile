@@ -346,7 +346,7 @@ COMMON_CROSS_PACKAGES = \
 	mini-sendmail mini-snmpd \
 	miscfiles mktemp mkvtoolnix mlocate moblock \
 	moc modutils monit most motion motor \
-	mod-fastcgi moe mp3blaster mp3info mpack mpage \
+	mod-fastcgi moe mp3blaster mp3info mp3val mpack mpage \
 	mpc mpd mpdscribble \
 	mpg123 mpop mrtg msmtp \
 	msort msynctool mt-daapd mt-daapd-svn mtools \
@@ -630,6 +630,7 @@ endif
 		$(IPKG_MAKE_INDEX) . > Packages; \
 		gzip -c Packages > Packages.gz; \
 	}
+	chmod -R a+r $(PACKAGE_DIR);
 	@echo "ALL DONE."
 
 packages: $(PACKAGES_IPKG)
